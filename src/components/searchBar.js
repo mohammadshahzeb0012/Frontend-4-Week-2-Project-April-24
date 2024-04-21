@@ -1,5 +1,5 @@
 import axios from "axios"
-export const SearchBar = ({ newApiStatus, setLoader }) => {
+export const SearchBar = ({ setResponse, setLoader, setSearchParam }) => {
     const handelSubmit = async (e) => {
         e.preventDefault();
         const pincode = e.target.pincode.value
@@ -9,13 +9,12 @@ export const SearchBar = ({ newApiStatus, setLoader }) => {
                 url: `https://api.postalpincode.in/pincode//${pincode}`,
                 method: 'GET'
             })
-
-            newApiStatus({ Status: 'Success', data: response.data })
+            setResponse(response)
             setLoader(false)
-            // console.log(response.data)
+            setSearchParam(pincode)
         } catch (Error) {
             setLoader(false)
-           alert('Something Went Wrong')
+            alert('Something Went Wrong')
         }
     }
     return (

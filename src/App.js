@@ -5,17 +5,24 @@ import { ResultContainer } from './components/resultContainer.js';
 
 
 function App() {
-  const [apiStatus, newApiStatus] = useState(null)
+  const [response, setResponse] = useState(null)
   const [loader, setLoader] = useState(false)
+  const [SearchParam, setSearchParam] = useState(null)
 
 
   return (
     <div className="app">
-      <SearchBar
-        newApiStatus={newApiStatus}
-        setLoader={setLoader}
-      />
-      {apiStatus && <ResultContainer apiStatus={apiStatus} />
+      {
+        !response ?
+          <SearchBar
+            setResponse={setResponse}
+            setLoader={setLoader}
+            setSearchParam={setSearchParam}
+          /> :
+          <ResultContainer
+            response={response}
+            SearchParam={SearchParam}
+          />
       }
       {loader && <div className="loader-wrraper">
         <div className="loader"></div>
